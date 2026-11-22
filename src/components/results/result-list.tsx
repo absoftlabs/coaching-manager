@@ -15,7 +15,7 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { printMarkSheet } from "@/lib/print";
 import { getGpa, gpaLabel, percentOf } from "@/lib/grade";
-import type { ResultDTO, SmsTemplateDTO, StudentDTO } from "@/lib/types";
+import type { ResultDTO, SmsTemplateDTO } from "@/lib/types";
 import { formatDate, readError } from "@/lib/utils";
 
 export function ResultList({
@@ -79,15 +79,8 @@ export function ResultList({
         }
     }
 
-    async function print(r: ResultDTO) {
-        let photo: string | null = null;
-        try {
-            const res = await fetch(`/api/students?q=${encodeURIComponent(r.studentId)}&take=5`);
-            if (res.ok) photo = ((await res.json()) as StudentDTO[]).find((s) => s.studentId === r.studentId)?.photoUrl ?? null;
-        } catch {
-            /* print without photo */
-        }
-        printMarkSheet(r, { ...org, logo }, photo);
+    function print(r: ResultDTO) {
+        printMarkSheet(r, { ...org, logo });
     }
 
     const columns: Column<ResultDTO>[] = [

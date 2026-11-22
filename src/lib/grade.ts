@@ -1,11 +1,17 @@
+/** Grading scale, highest first. `range` is the label shown on printed sheets. */
+export const GRADE_SCALE = [
+    { min: 80, range: "80 - 100", grade: "A+", point: 5.0 },
+    { min: 70, range: "70 - 79", grade: "A", point: 4.0 },
+    { min: 60, range: "60 - 69", grade: "A-", point: 3.5 },
+    { min: 50, range: "50 - 59", grade: "B", point: 3.0 },
+    { min: 40, range: "40 - 49", grade: "C", point: 2.0 },
+    { min: 33, range: "33 - 39", grade: "D", point: 1.0 },
+    { min: 0, range: "0 - 32", grade: "F", point: 0.0 },
+] as const;
+
 export function getGpa(percent: number) {
-    if (percent >= 80) return { grade: "A+", point: 5.0 };
-    if (percent >= 70) return { grade: "A", point: 4.0 };
-    if (percent >= 60) return { grade: "A-", point: 3.5 };
-    if (percent >= 50) return { grade: "B", point: 3.0 };
-    if (percent >= 40) return { grade: "C", point: 2.0 };
-    if (percent >= 33) return { grade: "D", point: 1.0 };
-    return { grade: "F", point: 0.0 };
+    const g = GRADE_SCALE.find((s) => percent >= s.min) ?? GRADE_SCALE[GRADE_SCALE.length - 1];
+    return { grade: g.grade as string, point: g.point as number };
 }
 
 export function percentOf(gain: number, total: number) {

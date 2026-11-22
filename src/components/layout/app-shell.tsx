@@ -27,7 +27,7 @@ function Brand() {
     return (
         <Link href="/" className="flex items-center gap-3 px-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={logo} alt="" className="size-10 shrink-0 rounded-xl bg-white object-cover ring-1 ring-white/15" />
+            <img src={logo} alt="" className="size-10 shrink-0 rounded-xl object-contain" />
             <div className="min-w-0 leading-tight">
                 <div className="truncate text-sm font-extrabold text-sidebar-foreground">{org.name}</div>
                 <div className="text-xs text-sidebar-muted">Coaching Manager</div>
